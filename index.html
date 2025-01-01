@@ -225,7 +225,7 @@
       </thead>
       <tbody>
         <tr>
-          <td colspan="11">아직 데이터가 입력되지 않았습니다.</td>
+          <td colspan="5">아직 데이터가 입력되지 않았습니다.</td>
         </tr>
       </tbody>
     </table>
@@ -255,7 +255,7 @@
       const building = document.getElementById("building-select").value;
       const floor = document.getElementById("floor-select").value;
       const remarks = document.getElementById("remarks").value;
-      
+
       // 체크리스트 항목들
       const filter = document.querySelector(".button-group[data-type='single'] .selected")?.textContent || "없음";
       const evaporatorClean = document.querySelector(".button-group[data-type='multi'] .clean.selected")?.textContent || "없음";
@@ -265,7 +265,7 @@
       const outdoorMotor = document.querySelector(".button-group[data-type='multi'] .outdoor-motor.selected")?.textContent || "없음";
       const outdoorClean = document.querySelector(".button-group[data-type='multi'] .outdoor-clean.selected")?.textContent || "없음";
       const gasCheck = document.querySelector(".button-group[data-type='multi'] .gas-check.selected")?.textContent || "없음";
-      
+
       const newData = { 
         month, 
         building, 
@@ -284,11 +284,11 @@
       dataStore.push(newData);
       localStorage.setItem("checklistData", JSON.stringify(dataStore));
       renderTable();
-      updateFinalData(newData);
+      updateFinalData(); // 모든 데이터가 최종 확인 데이터 테이블에 업데이트되도록 함.
       alert("데이터가 저장되었습니다!");
     });
 
-    // Render saved data table
+    // Render table
     function renderTable() {
       dataTable.innerHTML = "";
       dataStore.forEach((data, index) => {
@@ -298,7 +298,7 @@
             <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
             <td>${data.floor}</td>
             <td>${data.filter}</td>
-            <td>${data.remarks || "없음"}</td>
+            <td>${data.remarks}</td>
             <td><button class="edit-btn" onclick="editData(${index})">수정</button></td>
             <td><button class="delete-btn" onclick="deleteData(${index})">삭제</button></td>
           </tr>`;
@@ -306,23 +306,26 @@
       });
     }
 
-    // Update final data
-    function updateFinalData(newData) {
-      finalTable.innerHTML = `
-        <tr>
-          <td>${newData.month}월</td>
-          <td>${newData.building === "premix" ? "프리믹스동" : "제분동"}</td>
-          <td>${newData.floor}</td>
-          <td>${newData.filter}</td>
-          <td>${newData.evaporatorClean}</td>
-          <td>${newData.beltTension}</td>
-          <td>${newData.condenser}</td>
-          <td>${newData.outdoorMotor}</td>
-          <td>${newData.outdoorClean}</td>
-          <td>${newData.gasCheck}</td>
-          <td>${newData.remarks}</td>
-        </tr>
-      `;
+    // Update final data with all stored data
+    function updateFinalData() {
+      finalTable.innerHTML = "";
+      dataStore.forEach(data => {
+        const row = `
+          <tr>
+            <td>${data.month}월</td>
+            <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
+            <td>${data.floor}</td>
+            <td>${data.filter}</td>
+            <td>${data.evaporatorClean}</td>
+            <td>${data.beltTension}</td>
+            <td>${data.condenser}</td>
+            <td>${data.outdoorMotor}</td>
+            <td>${data.outdoorClean}</td>
+            <td>${data.gasCheck}</td>
+            <td>${data.remarks}</td>
+          </tr>`;
+        finalTable.innerHTML += row;
+      });
     }
 
     // Edit data
@@ -332,33 +335,21 @@
       document.getElementById("building-select").value = data.building;
       document.getElementById("floor-select").value = data.floor;
       document.getElementById("remarks").value = data.remarks;
-
-      // Update button groups (e.g., filter, evaporatorClean)
-      const filterBtns = document.querySelectorAll(".button-group[data-type='single'] button");
-      filterBtns.forEach(btn => {
-        if (btn.textContent === data.filter) {
-          btn.classList.add("selected");
-        }
-      });
-      // Handle multi-select buttons similarly
+      alert("수정 기능은 미완성입니다."); // 수정 기능 추가 예정
     };
 
     // Delete data
     window.deleteData = (index) => {
-      if (confirm("삭제하시겠습니까?")) {
-        dataStore.splice(index, 1);
-        localStorage.setItem("checklistData", JSON.stringify(dataStore));
-        renderTable();
-        finalTable.innerHTML = `
-          <tr>
-            <td colspan="11">아직 데이터가 입력되지 않았습니다.</td>
-          </tr>
-        `;
-      }
+      dataStore.splice(index, 1);
+      localStorage.setItem("checklistData", JSON.stringify(dataStore));
+      renderTable();
+      updateFinalData(); // 최종 데이터 갱신
+      alert("데이터가 삭제되었습니다!");
     };
 
-    // Initial render of stored data
+    // Initial render
     renderTable();
+    updateFinalData();
   </script>
 </body>
 </html>
