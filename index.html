@@ -125,6 +125,51 @@
       <option value="8">8층</option>
     </select>
 
+    <label for="office-select">사무실 선택</label>
+<select id="office-select" name="office">
+  <option value="본관2층">본관2층</option>
+  <option value="기술팀(본관2층)">기술팀(본관2층)</option>
+  <option value="접견실">접견실</option>
+  <option value="강당">강당</option>
+  <option value="식당(영양사실)">식당(영양사실)</option>
+  <option value="서고">서고</option>
+  <option value="CCR">CCR</option>
+  <option value="수전실(1층)">수전실(1층)</option>
+  <option value="MCC(2층)">MCC(2층)</option>
+  <option value="MCC(6층)">MCC(6층)</option>
+  <option value="4층실험분석실">4층실험분석실</option>
+  <option value="3층실험분석실">3층실험분석실</option>
+  <option value="대포장실">대포장실</option>
+  <option value="3KG포장실">3KG포장실</option>
+  <option value="1KG포장실">1KG포장실</option>
+  <option value="포장3층(포장실)">포장3층(포장실)</option>
+  <option value="포장3층(포유맨텍)">포장3층(포유맨텍)</option>
+  <option value="물류사무실">물류사무실</option>
+  <option value="통밀포장실">통밀포장실</option>
+  <option value="공작실">공작실</option>
+  <option value="예지보전실">예지보전실</option>
+  <option value="여자휴게실">여자휴게실</option>
+  <option value="자동창고서버룸">자동창고 서버룸</option>
+  <option value="2층 NIR">2층 NIR</option>
+  <option value="3급 통백">3급 통백</option>
+  <option value="8층 칼러쇼트룸(통밀)">8층 칼러쇼트룸(통밀)</option>
+  <option value="CCR">CCR</option>
+  <option value="MCC(2층)">MCC(2층)</option>
+  <option value="큐맥스현장사무실">큐맥스현장사무실</option>
+  <option value="현장4층">현장4층</option>
+  <option value="분석실(1층)">분석실(1층)</option>
+  <option value="복도(1층)">복도(1층)</option>
+  <option value="현장1층/대포장">현장1층/대포장</option>
+  <option value="현장1층/소포장">현장1층/소포장</option>
+  <option value="기획세트장">기획세트장</option>
+  <option value="경비실">경비실</option>
+  <option value="기사대기실(콘테이너)">기사대기실(콘테이너)</option>
+  <option value="탈의실(제분/프리믹스)">탈의실(제분/프리믹스)</option>
+  <option value="체력단련장">체력단련장</option>
+  <option value="노조사무실">노조사무실</option>
+</select>
+
+
     <!-- Checklist buttons -->
     <h2>체크리스트</h2>
     <label>필터 오염 정도</label>
@@ -213,6 +258,7 @@
           <th>월</th>
           <th>동</th>
           <th>층</th>
+          <th>사무실</th>
           <th>필터 오염 정도</th>
           <th>증발기 세척 여부</th>
           <th>팬벨트 장력 확인</th>
@@ -254,6 +300,7 @@
       const month = document.getElementById("month-select").value;
       const building = document.getElementById("building-select").value;
       const floor = document.getElementById("floor-select").value;
+      const office = document.getElementById("office-select").value;
       const remarks = document.getElementById("remarks").value;
 
       // 체크리스트 항목들
@@ -269,7 +316,8 @@
       const newData = { 
         month, 
         building, 
-        floor, 
+        floor,
+        office,
         filter, 
         evaporatorClean, 
         motorRunning, 
@@ -315,6 +363,7 @@
             <td>${data.month}월</td>
             <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
             <td>${data.floor}</td>
+            <td>${data.office}</td>
             <td>${data.filter}</td>
             <td>${data.evaporatorClean}</td>
             <td>${data.beltTension}</td>
