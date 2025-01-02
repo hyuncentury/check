@@ -169,6 +169,21 @@
   <option value="노조사무실">노조사무실</option>
 </select>
 
+<div>
+  <label for="ho-gi-select">호기:</label>
+  <select id="ho-gi-select">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+  </select>
+</div>
+
+
 
     <!-- Checklist buttons -->
     <h2>체크리스트</h2>
@@ -259,6 +274,7 @@
           <th>동</th>
           <th>층</th>
           <th>사무실</th>
+          <th>호기</th>
           <th>필터 오염 정도</th>
           <th>증발기 세척 여부</th>
           <th>팬벨트 장력 확인</th>
@@ -301,6 +317,7 @@
       const building = document.getElementById("building-select").value;
       const floor = document.getElementById("floor-select").value;
       const office = document.getElementById("office-select").value;
+      const hoGi = document.getElementById("ho-gi-select").value;
       const remarks = document.getElementById("remarks").value;
 
       // 체크리스트 항목들
@@ -318,6 +335,7 @@
         building, 
         floor,
         office,
+        hoGi,
         filter, 
         evaporatorClean, 
         motorRunning, 
@@ -364,6 +382,7 @@
             <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
             <td>${data.floor}</td>
             <td>${data.office}</td>
+            <td>${data.hoGi}</td>
             <td>${data.filter}</td>
             <td>${data.evaporatorClean}</td>
             <td>${data.beltTension}</td>
