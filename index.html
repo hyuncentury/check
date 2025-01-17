@@ -353,12 +353,59 @@
       updateFinalData(); // 모든 데이터가 최종 확인 데이터 테이블에 업데이트되도록 함.
       alert("데이터가 저장되었습니다!");
     });
+    // 저장 버튼 클릭 시 localStorage에 데이터 추가
+saveBtn.addEventListener("click", () => {
+  const month = document.getElementById("month-select").value;
+  const building = document.getElementById("building-select").value;
+  const floor = document.getElementById("floor-select").value;
+  const office = document.getElementById("office-select").value;
+  const hoGi = document.getElementById("ho-gi-select").value;
+  const remarks = document.getElementById("remarks").value;
+
+  // 체크리스트 항목들
+  const filter = document.querySelector(".button-group[data-type='single'] .selected")?.textContent || "없음";
+  const evaporatorClean = document.querySelector(".button-group[data-type='multi'] .clean.selected")?.textContent || "없음";
+  const motorRunning = document.querySelector(".button-group[data-type='multi'] .motor.selected")?.textContent || "없음";
+  const beltTension = document.querySelector(".button-group[data-type='single'] .belt.selected")?.textContent || "없음";
+  const condenser = document.querySelector(".button-group[data-type='single'] .condenser.selected")?.textContent || "없음";
+  const outdoorMotor = document.querySelector(".button-group[data-type='multi'] .outdoor-motor.selected")?.textContent || "없음";
+  const outdoorClean = document.querySelector(".button-group[data-type='multi'] .outdoor-clean.selected")?.textContent || "없음";
+  const gasCheck = document.querySelector(".button-group[data-type='multi'] .gas-check.selected")?.textContent || "없음";
+
+  const newData = { 
+    month, 
+    building, 
+    floor,
+    office,
+    hoGi,
+    filter, 
+    evaporatorClean, 
+    motorRunning, 
+    beltTension, 
+    condenser, 
+    outdoorMotor, 
+    outdoorClean, 
+    gasCheck, 
+    remarks 
+  };
+
+  // 기존 데이터를 localStorage에서 가져와서 새 데이터 추가
+  let dataStore = JSON.parse(localStorage.getItem("checklistData")) || [];
+  dataStore.push(newData);
+  localStorage.setItem("checklistData", JSON.stringify(dataStore));
+
+  // 테이블을 새로 갱신
+  updateFinalData();
+
+  alert("데이터가 저장되었습니다!");
+});
+
 
     // Render table
     function renderTable() {
       dataTable.innerHTML = "";
       dataStore.forEach((data, index) => {
-        const row = `
+        const row = 
           <tr>
             <td>${data.month}월</td>
             <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
@@ -367,7 +414,7 @@
             <td>${data.remarks}</td>
             <td><button class="edit-btn" onclick="editData(${index})">수정</button></td>
             <td><button class="delete-btn" onclick="deleteData(${index})">삭제</button></td>
-          </tr>`;
+          </tr>;
         dataTable.innerHTML += row;
       });
     }
@@ -376,7 +423,7 @@
     function updateFinalData() {
       finalTable.innerHTML = "";
       dataStore.forEach(data => {
-        const row = `
+        const row = 
           <tr>
             <td>${data.month}월</td>
             <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
@@ -391,7 +438,7 @@
             <td>${data.outdoorClean}</td>
             <td>${data.gasCheck}</td>
             <td>${data.remarks}</td>
-          </tr>`;
+          </tr>;
         finalTable.innerHTML += row;
       });
     }
@@ -406,18 +453,6 @@
       alert("수정 기능은 미완성입니다."); // 수정 기능 추가 예정
     };
 
-    // Delete data
-    window.deleteData = (index) => {
-      dataStore.splice(index, 1);
-      localStorage.setItem("checklistData", JSON.stringify(dataStore));
-      renderTable();
-      updateFinalData(); // 최종 데이터 갱신
-      alert("데이터가 삭제되었습니다!");
-    };
-
-    // Initial render
-    renderTable();
-    updateFinalData();
     // 페이지 로드 시 localStorage에서 데이터를 가져와서 테이블에 표시
 function updateFinalData() {
   // localStorage에서 데이터 가져오기
@@ -453,6 +488,19 @@ function updateFinalData() {
 // 페이지 로드 시 데이터 표시
 document.addEventListener('DOMContentLoaded', updateFinalData);
 
+
+    // Delete data
+    window.deleteData = (index) => {
+      dataStore.splice(index, 1);
+      localStorage.setItem("checklistData", JSON.stringify(dataStore));
+      renderTable();
+      updateFinalData(); // 최종 데이터 갱신
+      alert("데이터가 삭제되었습니다!");
+    };
+
+    // Initial render
+    renderTable();
+    updateFinalData();
   </script>
 </body>
 </html>
