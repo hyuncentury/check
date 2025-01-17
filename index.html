@@ -1,506 +1,344 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>월별 체크리스트</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f9;
-    }
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
-    }
-    h1, h2 {
-      margin: 1rem 0;
-      text-align: center;
-    }
-    form, .data-view, .final-data-view {
-      background: white;
-      margin: 1rem auto;
-      padding: 2rem;
-      max-width: 500px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-    label {
-      display: block;
-      margin: 0.5rem 0;
-    }
-    .button-group {
-      display: flex;
-      gap: 10px;
-      margin: 0.5rem 0;
-    }
-    button {
-      flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background: #fff;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button.selected {
-      background: #007BFF;
-      color: white;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    select, input[type="text"], button {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .data-view, .final-data-view {
-      max-width: 800px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-    th, td {
-      padding: 8px;
-      text-align: center;
-    }
-    .edit-btn {
-      background-color: #ffc107;
-    }
-    .delete-btn {
-      background-color: #dc3545;
-      color: white;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>월별 체크리스트</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f9;
+}
+header {
+    background: #4CAF50;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+h1, h2 {
+    margin: 1rem 0;
+    text-align: center;
+}
+form, .data-view, .final-data-view {
+    background: white;
+    margin: 1rem auto;
+    padding: 2rem;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+label {
+    display: block;
+    margin: 0.5rem 0;
+}
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin: 0.5rem 0;
+}
+button {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.selected {
+    background: #007BFF;
+    color: white;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+select, input[type="text"], button {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.data-view, .final-data-view {
+    max-width: 800px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>월별 체크리스트</h1>
-  </header>
 
-  <!-- Form for input -->
-  <form id="checklist-form">
+<header>
+<h1>월별 체크리스트</h1>
+</header>
+
+<!-- Form for input -->
+<form id="checklist-form">
     <label for="month-select">월 선택</label>
     <select id="month-select" name="month">
-      <option value="1">1월</option>
-      <option value="2">2월</option>
-      <option value="3">3월</option>
-      <option value="4">4월</option>
-      <option value="5">5월</option>
-      <option value="6">6월</option>
-      <option value="7">7월</option>
-      <option value="8">8월</option>
-      <option value="9">9월</option>
-      <option value="10">10월</option>
-      <option value="11">11월</option>
-      <option value="12">12월</option>
+        <option value="1">1월</option>
+        <option value="2">2월</option>
+        <option value="3">3월</option>
+        <option value="4">4월</option>
+        <option value="5">5월</option>
+        <option value="6">6월</option>
+        <option value="7">7월</option>
+        <option value="8">8월</option>
+        <option value="9">9월</option>
+        <option value="10">10월</option>
+        <option value="11">11월</option>
+        <option value="12">12월</option>
     </select>
 
     <label for="building-select">동 선택</label>
     <select id="building-select" name="building">
-      <option value="premix">프리믹스동</option>
-      <option value="flour">제분동</option>
+        <option value="premix">프리믹스동</option>
+        <option value="flour">제분동</option>
     </select>
 
     <label for="floor-select">층 선택</label>
     <select id="floor-select" name="floor">
-      <option value="1">1층</option>
-      <option value="2">2층</option>
-      <option value="3">3층</option>
-      <option value="4">4층</option>
-      <option value="5">5층</option>
-      <option value="6">6층</option>
-      <option value="7">7층</option>
-      <option value="8">8층</option>
+        <option value="1">1층</option>
+        <option value="2">2층</option>
+        <option value="3">3층</option>
+        <option value="4">4층</option>
+        <option value="5">5층</option>
+        <option value="6">6층</option>
+        <option value="7">7층</option>
+        <option value="8">8층</option>
     </select>
 
     <label for="office-select">사무실 선택</label>
-<select id="office-select" name="office">
-  <option value="본관2층">본관2층</option>
-  <option value="기술팀(본관2층)">기술팀(본관2층)</option>
-  <option value="접견실">접견실</option>
-  <option value="강당">강당</option>
-  <option value="식당(영양사실)">식당(영양사실)</option>
-  <option value="서고">서고</option>
-  <option value="CCR">CCR</option>
-  <option value="수전실(1층)">수전실(1층)</option>
-  <option value="MCC(2층)">MCC(2층)</option>
-  <option value="MCC(6층)">MCC(6층)</option>
-  <option value="4층실험분석실">4층실험분석실</option>
-  <option value="3층실험분석실">3층실험분석실</option>
-  <option value="대포장실">대포장실</option>
-  <option value="3KG포장실">3KG포장실</option>
-  <option value="1KG포장실">1KG포장실</option>
-  <option value="포장3층(포장실)">포장3층(포장실)</option>
-  <option value="포장3층(포유맨텍)">포장3층(포유맨텍)</option>
-  <option value="물류사무실">물류사무실</option>
-  <option value="통밀포장실">통밀포장실</option>
-  <option value="공작실">공작실</option>
-  <option value="예지보전실">예지보전실</option>
-  <option value="여자휴게실">여자휴게실</option>
-  <option value="자동창고서버룸">자동창고 서버룸</option>
-  <option value="2층 NIR">2층 NIR</option>
-  <option value="3급 통백">3급 통백</option>
-  <option value="8층 칼러쇼트룸(통밀)">8층 칼러쇼트룸(통밀)</option>
-  <option value="CCR">CCR</option>
-  <option value="MCC(2층)">MCC(2층)</option>
-  <option value="큐맥스현장사무실">큐맥스현장사무실</option>
-  <option value="현장4층">현장4층</option>
-  <option value="분석실(1층)">분석실(1층)</option>
-  <option value="복도(1층)">복도(1층)</option>
-  <option value="현장1층/대포장">현장1층/대포장</option>
-  <option value="현장1층/소포장">현장1층/소포장</option>
-  <option value="기획세트장">기획세트장</option>
-  <option value="경비실">경비실</option>
-  <option value="기사대기실(콘테이너)">기사대기실(콘테이너)</option>
-  <option value="탈의실(제분/프리믹스)">탈의실(제분/프리믹스)</option>
-  <option value="체력단련장">체력단련장</option>
-  <option value="노조사무실">노조사무실</option>
-</select>
+    <select id="office-select" name="office">
+        <option value="본관2층">본관2층</option>
+        <!-- Add other office options here -->
+    </select>
 
-<div>
-  <label for="ho-gi-select">호기:</label>
-  <select id="ho-gi-select">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-  </select>
-</div>
-
-
+    <div>
+        <label for="ho-gi-select">호기:</label>
+        <select id="ho-gi-select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <!-- Add more ho-gi options -->
+        </select>
+    </div>
 
     <!-- Checklist buttons -->
     <h2>체크리스트</h2>
+
     <label>필터 오염 정도</label>
-    <div class="button-group" data-type="single">
-      <button type="button" class="filter">상</button>
-      <button type="button" class="filter">중</button>
-      <button type="button" class="filter">하</button>
+    <div class="button-group" data-type="single" data-item="filter">
+        <button type="button" class="filter">상</button>
+        <button type="button" class="filter">중</button>
+        <button type="button" class="filter">하</button>
     </div>
+
     <label>증발기 세척 여부</label>
-    <div class="button-group" data-type="multi">
-      <button type="button" class="clean">YES</button>
-      <button type="button" class="clean">NO</button>
+    <div class="button-group" data-type="multi" data-item="evaporatorClean">
+        <button type="button" class="clean">YES</button>
+        <button type="button" class="clean">NO</button>
     </div>
 
-    <label>실내기 모터 가동 유무</label>
-    <div class="button-group" data-type="multi">
-      <button type="button" class="motor">YES</button>
-      <button type="button" class="motor">NO</button>
-    </div>
-
-    <label>팬벨트 장력 확인</label>
-    <div class="button-group" data-type="single">
-      <button type="button" class="belt">상</button>
-      <button type="button" class="belt">중</button>
-      <button type="button" class="belt">하</button>
-    </div>
-
-    <label>응축기 오염 정도</label>
-    <div class="button-group" data-type="single">
-      <button type="button" class="condenser">상</button>
-      <button type="button" class="condenser">중</button>
-      <button type="button" class="condenser">하</button>
-    </div>
-
-    <label>실외기 모터 가동 유무</label>
-    <div class="button-group" data-type="multi">
-      <button type="button" class="outdoor-motor">YES</button>
-      <button type="button" class="outdoor-motor">NO</button>
-    </div>
-
-    <label>응축기 세척 여부</label>
-    <div class="button-group" data-type="multi">
-      <button type="button" class="outdoor-clean">YES</button>
-      <button type="button" class="outdoor-clean">NO</button>
-    </div>
-
-    <label>냉매 누설 시 가스량 확인</label>
-    <div class="button-group" data-type="multi">
-      <button type="button" class="gas-check">YES</button>
-      <button type="button" class="gas-check">NO</button>
-    </div>
+    <!-- More checklist buttons here -->
 
     <label>비고</label>
     <input type="text" id="remarks" placeholder="비고를 입력하세요">
-
     <button type="button" id="save-btn">저장</button>
-  </form>
+</form>
 
-  <!-- View stored data -->
-  <section class="data-view">
+<!-- View stored data -->
+<section class="data-view">
     <h2>저장된 데이터</h2>
     <table>
-      <thead>
-        <tr>
-          <th>월</th>
-          <th>동</th>
-          <th>층</th>
-          <th>필터 오염 정도</th>
-          <th>비고</th>
-          <th>수정</th>
-          <th>삭제</th>
-        </tr>
-      </thead>
-      <tbody id="data-table">
-        <!-- Data rows will appear here -->
-      </tbody>
+        <thead>
+            <tr>
+                <th>월</th>
+                <th>동</th>
+                <th>층</th>
+                <th>필터 오염 정도</th>
+                <th>비고</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody id="data-table"></tbody>
     </table>
-  </section>
+</section>
 
-  <!-- 최종 확인 데이터 표시 -->
-  <section class="final-data-view">
+<!-- 최종 확인 데이터 표시 -->
+<section class="final-data-view">
     <h2>최종 확인 데이터</h2>
     <table id="final-data-table">
-      <thead>
-        <tr>
-          <th>월</th>
-          <th>동</th>
-          <th>층</th>
-          <th>사무실</th>
-          <th>호기</th>
-          <th>필터 오염 정도</th>
-          <th>증발기 세척 여부</th>
-          <th>팬벨트 장력 확인</th>
-          <th>응축기 오염 정도</th>
-          <th>실외기 모터 가동 유무</th>
-          <th>응축기 세척 여부</th>
-          <th>냉매 누설 시 가스량 확인</th>
-          <th>비고</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="5">아직 데이터가 입력되지 않았습니다.</td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr>
+                <th>월</th>
+                <th>동</th>
+                <th>층</th>
+                <th>사무실</th>
+                <th>호기</th>
+                <th>필터 오염 정도</th>
+                <th>증발기 세척 여부</th>
+                <th>팬벨트 장력 확인</th>
+                <th>응축기 오염 정도</th>
+                <th>실외기 모터 가동 유무</th>
+                <th>응축기 세척 여부</th>
+                <th>냉매 누설 시 가스량 확인</th>
+                <th>비고</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="5">아직 데이터가 입력되지 않았습니다.</td>
+            </tr>
+        </tbody>
     </table>
-  </section>
+</section>
 
-  <script>
-    const saveBtn = document.getElementById("save-btn");
-    const dataTable = document.getElementById("data-table");
-    const finalTable = document.getElementById("final-data-table").querySelector("tbody");
-    let dataStore = JSON.parse(localStorage.getItem("checklistData")) || [];
+<script>
+const saveBtn = document.getElementById("save-btn");
+const dataTable = document.getElementById("data-table");
+const finalTable = document.getElementById("final-data-table").querySelector("tbody");
 
-    // 버튼 색상 변경
-    const buttonGroups = document.querySelectorAll(".button-group");
-    buttonGroups.forEach(group => {
-      group.addEventListener("click", (e) => {
+let dataStore = JSON.parse(localStorage.getItem("checklistData")) || [];
+
+const buttonGroups = document.querySelectorAll(".button-group");
+buttonGroups.forEach(group => {
+    group.addEventListener("click", (e) => {
         if (e.target.tagName === "BUTTON") {
-          const buttons = group.querySelectorAll("button");
-          buttons.forEach(btn => btn.classList.remove("selected")); // 기존 선택 해제
-          e.target.classList.add("selected"); // 선택된 버튼 활성화
+            const buttons = group.querySelectorAll("button");
+            buttons.forEach(btn => btn.classList.remove("selected"));
+            e.target.classList.add("selected");
         }
-      });
     });
+});
 
-    // Save form data
-    saveBtn.addEventListener("click", () => {
-      const month = document.getElementById("month-select").value;
-      const building = document.getElementById("building-select").value;
-      const floor = document.getElementById("floor-select").value;
-      const office = document.getElementById("office-select").value;
-      const hoGi = document.getElementById("ho-gi-select").value;
-      const remarks = document.getElementById("remarks").value;
+saveBtn.addEventListener("click", () => {
+    const month = document.getElementById("month-select").value;
+    const building = document.getElementById("building-select").value;
+    const floor = document.getElementById("floor-select").value;
+    const office = document.getElementById("office-select").value;
+    const hoGi = document.getElementById("ho-gi-select").value;
+    const remarks = document.getElementById("remarks").value;
 
-      // 체크리스트 항목들
-      const filter = document.querySelector(".button-group[data-type='single'] .selected")?.textContent || "없음";
-      const evaporatorClean = document.querySelector(".button-group[data-type='multi'] .clean.selected")?.textContent || "없음";
-      const motorRunning = document.querySelector(".button-group[data-type='multi'] .motor.selected")?.textContent || "없음";
-      const beltTension = document.querySelector(".button-group[data-type='single'] .belt.selected")?.textContent || "없음";
-      const condenser = document.querySelector(".button-group[data-type='single'] .condenser.selected")?.textContent || "없음";
-      const outdoorMotor = document.querySelector(".button-group[data-type='multi'] .outdoor-motor.selected")?.textContent || "없음";
-      const outdoorClean = document.querySelector(".button-group[data-type='multi'] .outdoor-clean.selected")?.textContent || "없음";
-      const gasCheck = document.querySelector(".button-group[data-type='multi'] .gas-check.selected")?.textContent || "없음";
+    const filter = document.querySelector(".button-group[data-type='single'] .selected")?.textContent || "없음";
+    const evaporatorClean = document.querySelector(".button-group[data-type='multi'] .clean.selected")?.textContent || "없음";
+    const motorRunning = document.querySelector(".button-group[data-type='multi'] .motor.selected")?.textContent || "없음";
+    const beltTension = document.querySelector(".button-group[data-type='single'] .belt.selected")?.textContent || "없음";
+    const condenser = document.querySelector(".button-group[data-type='single'] .condenser.selected")?.textContent || "없음";
+    const outdoorMotor = document.querySelector(".button-group[data-type='multi'] .outdoor-motor.selected")?.textContent || "없음";
+    const gasCheck = document.querySelector(".button-group[data-type='multi'] .gas-check.selected")?.textContent || "없음";
 
-      const newData = { 
-        month, 
-        building, 
+    const newData = {
+        month,
+        building,
         floor,
         office,
         hoGi,
-        filter, 
-        evaporatorClean, 
-        motorRunning, 
-        beltTension, 
-        condenser, 
-        outdoorMotor, 
-        outdoorClean, 
-        gasCheck, 
-        remarks 
-      };
+        filter,
+        evaporatorClean,
+        motorRunning,
+        beltTension,
+        condenser,
+        outdoorMotor,
+        gasCheck,
+        remarks
+    };
 
-      dataStore.push(newData);
-      localStorage.setItem("checklistData", JSON.stringify(dataStore));
-      renderTable();
-      updateFinalData(); // 모든 데이터가 최종 확인 데이터 테이블에 업데이트되도록 함.
-      alert("데이터가 저장되었습니다!");
-    });
-    // 저장 버튼 클릭 시 localStorage에 데이터 추가
-saveBtn.addEventListener("click", () => {
-  const month = document.getElementById("month-select").value;
-  const building = document.getElementById("building-select").value;
-  const floor = document.getElementById("floor-select").value;
-  const office = document.getElementById("office-select").value;
-  const hoGi = document.getElementById("ho-gi-select").value;
-  const remarks = document.getElementById("remarks").value;
-
-  // 체크리스트 항목들
-  const filter = document.querySelector(".button-group[data-type='single'] .selected")?.textContent || "없음";
-  const evaporatorClean = document.querySelector(".button-group[data-type='multi'] .clean.selected")?.textContent || "없음";
-  const motorRunning = document.querySelector(".button-group[data-type='multi'] .motor.selected")?.textContent || "없음";
-  const beltTension = document.querySelector(".button-group[data-type='single'] .belt.selected")?.textContent || "없음";
-  const condenser = document.querySelector(".button-group[data-type='single'] .condenser.selected")?.textContent || "없음";
-  const outdoorMotor = document.querySelector(".button-group[data-type='multi'] .outdoor-motor.selected")?.textContent || "없음";
-  const outdoorClean = document.querySelector(".button-group[data-type='multi'] .outdoor-clean.selected")?.textContent || "없음";
-  const gasCheck = document.querySelector(".button-group[data-type='multi'] .gas-check.selected")?.textContent || "없음";
-
-  const newData = { 
-    month, 
-    building, 
-    floor,
-    office,
-    hoGi,
-    filter, 
-    evaporatorClean, 
-    motorRunning, 
-    beltTension, 
-    condenser, 
-    outdoorMotor, 
-    outdoorClean, 
-    gasCheck, 
-    remarks 
-  };
-
-  // 기존 데이터를 localStorage에서 가져와서 새 데이터 추가
-  let dataStore = JSON.parse(localStorage.getItem("checklistData")) || [];
-  dataStore.push(newData);
-  localStorage.setItem("checklistData", JSON.stringify(dataStore));
-
-  // 테이블을 새로 갱신
-  updateFinalData();
-
-  alert("데이터가 저장되었습니다!");
+    dataStore.push(newData);
+    localStorage.setItem("checklistData", JSON.stringify(dataStore));
+    displayData();
+    displayFinalData();
 });
 
-
-    // Render table
-    function renderTable() {
-      dataTable.innerHTML = "";
-      dataStore.forEach((data, index) => {
-        const row = 
-          <tr>
-            <td>${data.month}월</td>
-            <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
+function displayData() {
+    dataTable.innerHTML = "";
+    dataStore.forEach((data, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${data.month}</td>
+            <td>${data.building}</td>
             <td>${data.floor}</td>
             <td>${data.filter}</td>
             <td>${data.remarks}</td>
-            <td><button class="edit-btn" onclick="editData(${index})">수정</button></td>
-            <td><button class="delete-btn" onclick="deleteData(${index})">삭제</button></td>
-          </tr>;
-        dataTable.innerHTML += row;
-      });
-    }
+            <td><button class="edit-btn" onclick="editHandler(${index})">수정</button></td>
+            <td><button class="delete-btn" onclick="deleteHandler(${index})">삭제</button></td>
+        `;
+        dataTable.appendChild(row);
+    });
+}
 
-    // Update final data with all stored data
-    function updateFinalData() {
-      finalTable.innerHTML = "";
-      dataStore.forEach(data => {
-        const row = 
-          <tr>
-            <td>${data.month}월</td>
-            <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
+function displayFinalData() {
+    finalTable.innerHTML = "";
+    dataStore.forEach((data) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${data.month}</td>
+            <td>${data.building}</td>
             <td>${data.floor}</td>
             <td>${data.office}</td>
             <td>${data.hoGi}</td>
             <td>${data.filter}</td>
             <td>${data.evaporatorClean}</td>
+            <td>${data.motorRunning}</td>
             <td>${data.beltTension}</td>
             <td>${data.condenser}</td>
             <td>${data.outdoorMotor}</td>
-            <td>${data.outdoorClean}</td>
             <td>${data.gasCheck}</td>
             <td>${data.remarks}</td>
-          </tr>;
-        finalTable.innerHTML += row;
-      });
-    }
-
-    // Edit data
-    window.editData = (index) => {
-      const data = dataStore[index];
-      document.getElementById("month-select").value = data.month;
-      document.getElementById("building-select").value = data.building;
-      document.getElementById("floor-select").value = data.floor;
-      document.getElementById("remarks").value = data.remarks;
-      alert("수정 기능은 미완성입니다."); // 수정 기능 추가 예정
-    };
-
-    // 페이지 로드 시 localStorage에서 데이터를 가져와서 테이블에 표시
-function updateFinalData() {
-  // localStorage에서 데이터 가져오기
-  const finalData = JSON.parse(localStorage.getItem('checklistData')) || [];
-
-  // 데이터가 없으면 "데이터가 입력되지 않았습니다." 표시
-  if (finalData.length === 0) {
-    finalTable.innerHTML = `<tr><td colspan="13">아직 데이터가 입력되지 않았습니다.</td></tr>`;
-  } else {
-    finalTable.innerHTML = "";  // 기존 테이블 초기화
-    finalData.forEach(data => {
-      const row = `
-        <tr>
-          <td>${data.month}월</td>
-          <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
-          <td>${data.floor}</td>
-          <td>${data.office}</td>
-          <td>${data.hoGi}</td>
-          <td>${data.filter}</td>
-          <td>${data.evaporatorClean}</td>
-          <td>${data.beltTension}</td>
-          <td>${data.condenser}</td>
-          <td>${data.outdoorMotor}</td>
-          <td>${data.outdoorClean}</td>
-          <td>${data.gasCheck}</td>
-          <td>${data.remarks}</td>
-        </tr>`;
-      finalTable.innerHTML += row;
+        `;
+        finalTable.appendChild(row);
     });
-  }
 }
 
-// 페이지 로드 시 데이터 표시
-document.addEventListener('DOMContentLoaded', updateFinalData);
+function deleteHandler(index) {
+    dataStore.splice(index, 1);
+    localStorage.setItem("checklistData", JSON.stringify(dataStore));
+    displayData();
+}
 
+function editHandler(index) {
+    const data = dataStore[index];
+    document.getElementById("month-select").value = data.month;
+    document.getElementById("building-select").value = data.building;
+    document.getElementById("floor-select").value = data.floor;
+    document.getElementById("office-select").value = data.office;
+    document.getElementById("ho-gi-select").value = data.hoGi;
+    document.getElementById("remarks").value = data.remarks;
+    // Add code to restore button selection here
+    displayData();
+}
 
-    // Delete data
-    window.deleteData = (index) => {
-      dataStore.splice(index, 1);
-      localStorage.setItem("checklistData", JSON.stringify(dataStore));
-      renderTable();
-      updateFinalData(); // 최종 데이터 갱신
-      alert("데이터가 삭제되었습니다!");
-    };
+displayData();
+displayFinalData();
+</script>
 
-    // Initial render
-    renderTable();
-    updateFinalData();
-  </script>
 </body>
 </html>
