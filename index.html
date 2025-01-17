@@ -418,6 +418,41 @@
     // Initial render
     renderTable();
     updateFinalData();
+    // 페이지 로드 시 localStorage에서 데이터를 가져와서 테이블에 표시
+function updateFinalData() {
+  // localStorage에서 데이터 가져오기
+  const finalData = JSON.parse(localStorage.getItem('checklistData')) || [];
+
+  // 데이터가 없으면 "데이터가 입력되지 않았습니다." 표시
+  if (finalData.length === 0) {
+    finalTable.innerHTML = `<tr><td colspan="13">아직 데이터가 입력되지 않았습니다.</td></tr>`;
+  } else {
+    finalTable.innerHTML = "";  // 기존 테이블 초기화
+    finalData.forEach(data => {
+      const row = `
+        <tr>
+          <td>${data.month}월</td>
+          <td>${data.building === "premix" ? "프리믹스동" : "제분동"}</td>
+          <td>${data.floor}</td>
+          <td>${data.office}</td>
+          <td>${data.hoGi}</td>
+          <td>${data.filter}</td>
+          <td>${data.evaporatorClean}</td>
+          <td>${data.beltTension}</td>
+          <td>${data.condenser}</td>
+          <td>${data.outdoorMotor}</td>
+          <td>${data.outdoorClean}</td>
+          <td>${data.gasCheck}</td>
+          <td>${data.remarks}</td>
+        </tr>`;
+      finalTable.innerHTML += row;
+    });
+  }
+}
+
+// 페이지 로드 시 데이터 표시
+document.addEventListener('DOMContentLoaded', updateFinalData);
+
   </script>
 </body>
 </html>
